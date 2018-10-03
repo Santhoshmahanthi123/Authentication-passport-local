@@ -10,7 +10,7 @@ const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const passportLocalMongoose = require("passport-local-mongoose"); 
 mongoose.connect('mongodb://localhost/assesment2',{ useCreateIndex: true, useNewUrlParser: true })
-
+ 
 const ejs = require('ejs');
 const app = express();
 
@@ -31,14 +31,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.get('/',(req,res)=>{
 res.send('welcome to home route!')
-})
+});
 app.get('/register', (req, res, next) => {
     res.render('register');
 });
 
 app.post('/register',(req,res)=>{
-    req.body.username
-    req.body.password
     User.register(new User({username:req.body.username,email:req.body.email}),req.body.password,(err,user)=>{
         if(err){
             console.log(err);
@@ -49,11 +47,11 @@ app.post('/register',(req,res)=>{
         })
     });
 });
-app.get('/login', (req, res, next) => {
+app.get('/login', (req, res) => {
     res.render('login');
  });
  app.post('/login',passport.authenticate("local",{
-     successRedirect:"/session",
+     successRedirect:"/bid",
      failureRedirect:"/login"
  }),(req,res)=>{
 
@@ -70,13 +68,13 @@ app.get('/santhosh',isLoggedIn,(req,res)=>{
     res.render("santhosh");
 
 })
-app.get('/bid',(req,res)=>{
+app.get('/bid',isLoggedIn,(req,res)=>{
     res.render('bid');
 })
 app.post('/bid',(req,res)=>{
 
  
-    Item.register(new Item({name:req.body.name,description:req.body.description,image:req.body.image,date:req.body.date,bids:req.body.bids}),(err,item)=>{
+    Item.create(new Item({name:req.body.name,description:req.body.description,image:req.body.image,date:req.body.date,bids:req.body.bids}),(err,item)=>{
         if(err){
             console.log(err);
             return res.render("bid");

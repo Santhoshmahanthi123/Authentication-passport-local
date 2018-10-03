@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require("passport-local-mongoose");
-const uniqueValidator = require('mongoose-unique-validator');
+
  
 // Define your schema as normal.
 const itemschema = mongoose.Schema({
@@ -11,7 +11,6 @@ const itemschema = mongoose.Schema({
     bids:Number,
 });
  
-itemschema.plugin(uniqueValidator);
 
 itemschema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('Item', itemschema);
