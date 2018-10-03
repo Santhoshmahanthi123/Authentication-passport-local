@@ -1,0 +1,12 @@
+<% include ./partials/header %>
+<h1>welcome to bidding!</h1>
+<form action='/bid' method="POST">
+    
+<input type="text" name="name" placeholder="name"><br><br>
+<input type="text" name="description" placeholder="description"><br><br>
+<input name="image" type="file"><br><br>
+<input type="date" name="date"><br><br>
+<input type="text" name="bids" placeholder="bids"><br><br>
+<button>Submit</button>
+  </form>
+ <% include ./partials/footer %>
