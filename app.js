@@ -71,7 +71,7 @@ app.get('/santhosh',isLoggedIn,(req,res)=>{
 app.get('/bid',isLoggedIn,(req,res)=>{
     res.render('bid');
 })
-app.post('/bid',(req,res)=>{
+app.post('/bid',isLoggedIn,(req,res)=>{
 
  
     Item.create(new Item({name:req.body.name,description:req.body.description,image:req.body.image,date:req.body.date,bids:req.body.bids}),(err,item)=>{
